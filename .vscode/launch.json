@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<SwervePi>",
+            "request": "launch",
+            "mainClass": "frc.robot.Main",
+            "projectName": "SwervePi"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Launch<SwervePi>",
+            "request": "launch",
+            "mainClass": "robotCore.Launch",
+            "projectName": "SwervePi",
+            "args": "10.21.2.2:8999 frc.robot.Main --"
+        }
+    ]
+}
+
