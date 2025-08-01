@@ -7,16 +7,18 @@ import frc.robot.subsystems.SwerveModule;
 import robotCore.Logger;
 import frc.robot.Constants.Steering;
 
-public class SteeringTo90 extends Command {
+public class SteeringToAngle extends Command {
     private final DriveSubsystem m_DriveSubsystem;
     private final SwerveModule m_FLmodule;
     private final SwerveModule m_BLmodule;
     private final SwerveModule m_BRmodule;
     private final SwerveModule m_FRmodule;
     private SwerveModule m_module;
+    private final double m_angle;
 
-    public SteeringTo90(DriveSubsystem subsystem){
+    public SteeringToAngle(DriveSubsystem subsystem, double angle){
         m_DriveSubsystem = subsystem;
+        m_angle = angle;
         m_FLmodule = m_DriveSubsystem.GetFrontLeftModule();
         m_BLmodule = m_DriveSubsystem.GetBackLeftModule();
         m_BRmodule = m_DriveSubsystem.GetBackRightModule();
@@ -28,7 +30,10 @@ public class SteeringTo90 extends Command {
     @Override
     public void initialize(){
 
-        m_FLmodule.setSteeringPosition(90);
+        m_FLmodule.setSteeringPosition(m_angle);
+        m_FRmodule.setSteeringPosition(m_angle);
+        m_BLmodule.setSteeringPosition(m_angle);
+        m_BRmodule.setSteeringPosition(m_angle);
 
     }
 

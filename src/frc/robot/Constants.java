@@ -21,20 +21,20 @@ public final class Constants {
 
     public static class Steering{
 
-        public static final int k_FLZero = 1268;
+        public static final int k_FLZero = 1265;
         public static final int k_FRZero = -2064;
         public static final int k_BLZero = 218;
         public static final int k_BRZero = -946;
 
-        public static final double k_FLMinSteerPower = .2;
+        public static final double k_FLMinSteerPower = .28;
         public static final double k_FRMinSteerPower = .28;
         public static final double k_BLMinSteerPower = .28;
         public static final double k_BRMinSteerPower = .28;
 
-        public static final double k_frontLeftSteeringP =  0.0028; //.8 / 360; 
-        public static final double k_frontRightSteeringP = .045 / 360;
-        public static final double k_backLeftSteeringP = .045 / 360;
-        public static final double k_backRightSteeringP = .045 / 360;
+        public static final double k_frontLeftSteeringP =  .8 / 360; 
+        public static final double k_frontRightSteeringP = .8 / 360;
+        public static final double k_backLeftSteeringP = .8 / 360;
+        public static final double k_backRightSteeringP = .8 / 360;
 
         public static final double k_frontLeftSteeringD = 0.005;
         public static final double k_frontRightSteeringD = 0.005;
@@ -43,6 +43,7 @@ public final class Constants {
     }
     public static class Drive{
         public static final double k_maxSpeed = 2000;
+        public static final double k_maxAngularSpeed = 0;
 
         public static final double k_FLminDrivePower = 0.45;
         public static final double k_FRminDrivePower = 0.45;
@@ -54,9 +55,12 @@ public final class Constants {
         public static final double k_backLeftDriveF = 1.0 /k_maxSpeed;
         public static final double k_backRightDriveF = 1.0 /k_maxSpeed;
 
-        public static final double k_DriveP = 0.001; 
+        public static final double k_DriveP = 0.0001; 
         public static final double k_DriveITerm = 0.0001;
         public static final double k_DriveIZone = 200;
+
+        public static final double k_ticksPerMeter = 1006/0.4445;//3579 / 1.345;
+        public static final double k_maxDriveSpeedMetersPerSecond = k_maxSpeed / k_ticksPerMeter; // = 0.9395 m/s
 
     }
 }

@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import frc.robot.Constants;
 import frc.robot.Robot;
 import robotCore.Logger;
 import robotCore.PWMMotor;
@@ -19,6 +20,8 @@ public class SwerveModule {
     private final double k_degreesPerTick;
     private final double k_deadZone = 2.0;
 
+    private final Gyro m_Gyro = new Gyro();
+
     public SwerveModule(int drivePWM, int driveDir, int driveEncInt, int driveEncDir, 
                         int steeringPWM, int steeringDir, int steeringEncA, int steeringEncB, 
                         int i2cAddr, String name) {
@@ -34,6 +37,8 @@ public class SwerveModule {
         k_degreesPerTick = 360.0 / m_steeringEncoder.getRange(); //Converts arbitrary rot sensor to degrees
     
         m_steeringMotor.setDeadZone(k_deadZone / k_degreesPerTick);
+
+        //m_steeringMotor.setInverted(true);
     }
 
     // Drive Setters
@@ -49,6 +54,23 @@ public class SwerveModule {
     public void setDriveSpeed(double speed){
         m_driveMotor.setControlMode(SmartMotorMode.Speed);
         m_driveMotor.set(speed);
+    }
+
+    public void setDriveSpeedMPS(double speed){
+        m_driveMotor.set(speed * Constants.Drive.k_ticksPerMeter);
+    }
+
+    // Drive Getters
+    public double getDriveSpeed(){
+        return m_driveEncoder.getSpeed();
+    }
+
+    public double getDrivePosition(){
+        return m_driveEncoder.getPosition();
+    }
+
+    public double getDriveSpeedMPS(){
+        return getDriveSpeed() / Constants.Drive.k_ticksPerMeter;
     }
 
     // Steering Setters
@@ -85,6 +107,34 @@ public class SwerveModule {
 
     public double getSteeringPositionInDegrees(){
         return Gyro.normalizeAngle(getSteeringPosition()*k_degreesPerTick);
+    }
+
+    public void setDesiredState(SwerveModuleState desiredState) {
+ 
+        Rotation2d encoderRotation = Rotation2d.fromDegrees(getSteeringPosition());
+ 
+        // Optimize the reference state to avoid spinning further than 90 degrees
+        SwerveModuleState state = SwerveModuleState.optimize(desiredState, encoderRotation);
+ 
+        state.speedMetersPerSecond *= state.angle.minus(encoderRotation).getCos();
+ 
+        setDriveSpeedMPS(state.speedMetersPerSecond);
+        setSteeringPosition(state.angle.getDegrees());
+    }
+
+
+    // Stop Motors
+    public void stopSteering() {
+        setSteeringPower(0);
+    }
+
+    public void stopDrive() {
+        setDrivePower(0);
+    }
+
+    public void stop() {
+        stopSteering();
+        stopDrive();
     }
         
 }

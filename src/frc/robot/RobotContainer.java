@@ -7,11 +7,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.SteeringTuning;
-import frc.robot.commands.SteeringTo90;
+import frc.robot.commands.SteeringToAngle;
+import frc.robot.commands.CalibrateDist;
 import frc.robot.commands.DriveTuning;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -34,11 +38,20 @@ public class RobotContainer {
 
   private final CommandJoystick m_joystick = new CommandJoystick(0);
 
+  private final CommandXboxController m_xbox = new CommandXboxController(0);
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
+    
+    m_driveSubsystem.setDefaultCommand(new ArcadeDrive(m_driveSubsystem, () -> m_joystick.getX(),
+    () -> -m_joystick.getY(), () -> m_joystick.getZ(), true));
+
+    m_driveSubsystem.setDefaultCommand(new ArcadeDrive(m_driveSubsystem, () -> m_xbox.getLeftX(),
+        () -> -m_xbox.getLeftY(), () -> m_xbox.getRightX(), true));
+    
     configureButtonBindings();
   }
 
@@ -49,8 +62,14 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    m_joystick.button(10).onTrue(new DriveTuning(m_driveSubsystem));
-    m_joystick.button(11).onTrue(new SteeringTo90(m_driveSubsystem));
+
+    m_joystick.button(11).onTrue(new CalibrateDist(m_driveSubsystem));
+    m_joystick.button(7).onTrue(new SteeringToAngle(m_driveSubsystem, 0));
+    m_joystick.button(8).onTrue(new SteeringToAngle(m_driveSubsystem, 90));
+    m_joystick.button(9).onTrue(new SteeringToAngle(m_driveSubsystem, 180));
+    m_joystick.button(10).onTrue(new SteeringToAngle(m_driveSubsystem, 270));
+    m_joystick.button(11).onTrue(new CalibrateDist(m_driveSubsystem));
+    //m_joystick.button(11).onTrue(new DriveTuning(m_driveSubsystem));
     m_joystick.button(12).onTrue(new SteeringTuning(m_driveSubsystem));
   }
 
