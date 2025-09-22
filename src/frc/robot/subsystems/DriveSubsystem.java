@@ -79,7 +79,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     }
 
-
+    public void resetGyro() {
+        m_gyro.reset(0);
+      }
 
     public SwerveModule GetFrontLeftModule(){
         return m_frontLeft;
@@ -138,6 +140,8 @@ public class DriveSubsystem extends SubsystemBase {
     @Override
     public void periodic(){
         Logger.log("DriveSubsystem", -1, "periodic()");
+        Logger.log("Yaw", 1, String.valueOf(m_gyro.getYaw()));
+        Logger.log("Rotation", 1, String.valueOf(m_gyro.getRotation2d()));
         //Logger.log("DriveDist", 1, String.valueOf(GetFrontLeftModule().getDrivePosition()));
         //Logger.log("DriveDist", 1, String.valueOf(GetFrontRightModule().getDrivePosition()));
         //Logger.log("DriveDist", 1, String.valueOf(GetBackLeftModule().getDrivePosition()));

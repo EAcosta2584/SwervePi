@@ -109,6 +109,7 @@ public class SwerveModule {
         return Gyro.normalizeAngle(getSteeringPosition()*k_degreesPerTick);
     }
 
+
     public void setDesiredState(SwerveModuleState desiredState) {
  
         Rotation2d encoderRotation = Rotation2d.fromDegrees(getSteeringPosition());
