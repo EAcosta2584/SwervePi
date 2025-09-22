@@ -20,7 +20,7 @@ public class SwerveModule {
     private final double k_degreesPerTick;
     private final double k_deadZone = 2.0;
 
-    private final Gyro m_Gyro = new Gyro();
+    //private final Gyro m_Gyro = new Gyro();
 
     public SwerveModule(int drivePWM, int driveDir, int driveEncInt, int driveEncDir, 
                         int steeringPWM, int steeringDir, int steeringEncA, int steeringEncB, 

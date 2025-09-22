@@ -25,6 +25,8 @@ import frc.robot.Constants.Steering;
 
 public class DriveSubsystem extends SubsystemBase {
 
+    private final Gyro m_gyro = new Gyro();
+
     SwerveModule m_frontLeft = new SwerveModule(Swerve.FLDrivePWM, Swerve.FLDriveDir, Swerve.FLDriveEncInt, 
         Swerve.FLDriveEncDir, Swerve.FLSteeringPWM, Swerve.FLSteeringDir, Swerve.FLSteeringEncA, Swerve.FLSteeringEncB, Swerve.FLI2CAddr, "Front Left");
     SwerveModule m_frontRight = new SwerveModule(Swerve.FRDrivePWM, Swerve.FRDriveDir, Swerve.FRDriveEncInt, 
@@ -44,7 +46,7 @@ public class DriveSubsystem extends SubsystemBase {
         m_frontLeftLocation, m_backLeftLocation, m_backRightLocation, m_frontRightLocation);
 
 
-    private final Gyro m_gyro = new Gyro();
+    
 
     public DriveSubsystem() {
         Logger.log("DriveSubsystem", 3, "DriveSubsystem()");
@@ -75,6 +77,7 @@ public class DriveSubsystem extends SubsystemBase {
         m_backLeft.setDriveMinPower(Drive.k_BLminDrivePower);
         m_backRight.setDriveMinPower(Drive.k_BRminDrivePower);
 
+        m_gyro.invert(false);
         m_gyro.reset(0);
 
     }
