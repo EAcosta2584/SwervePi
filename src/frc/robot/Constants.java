@@ -42,20 +42,20 @@ public final class Constants {
         public static final double k_backRightSteeringD = 0.005;
     }
     public static class Drive{
-        public static final double k_maxSpeed = 2000;
-        public static final double k_maxAngularSpeed = 0;
+        public static final double k_maxSpeed = 2500;
+        public static final double k_maxAngularSpeed = 2.0;
 
-        public static final double k_FLminDrivePower = 0.45;
-        public static final double k_FRminDrivePower = 0.45;
-        public static final double k_BLminDrivePower = 0.45;
-        public static final double k_BRminDrivePower = 0.45;
+        public static final double k_FLminDrivePower = 0.3;//0.45;
+        public static final double k_FRminDrivePower = 0.29;//0.45;
+        public static final double k_BLminDrivePower = 0.29;//0.45;
+        public static final double k_BRminDrivePower = 0.28;//0.45;
 
         public static final double k_frontLeftDriveF = 1.0 /k_maxSpeed; 
         public static final double k_frontRightDriveF = 1.0 /k_maxSpeed;
         public static final double k_backLeftDriveF = 1.0 /k_maxSpeed;
         public static final double k_backRightDriveF = 1.0 /k_maxSpeed;
 
-        public static final double k_DriveP = 0.0001; 
+        public static final double k_DriveP = 0.0010;//0.0001; 
         public static final double k_DriveITerm = 0.0001;
         public static final double k_DriveIZone = 200;
 

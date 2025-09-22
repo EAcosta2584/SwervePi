@@ -29,18 +29,18 @@ public class DriveSubsystem extends SubsystemBase {
 
     SwerveModule m_frontLeft = new SwerveModule(Swerve.FLDrivePWM, Swerve.FLDriveDir, Swerve.FLDriveEncInt, 
         Swerve.FLDriveEncDir, Swerve.FLSteeringPWM, Swerve.FLSteeringDir, Swerve.FLSteeringEncA, Swerve.FLSteeringEncB, Swerve.FLI2CAddr, "Front Left");
-    SwerveModule m_frontRight = new SwerveModule(Swerve.FRDrivePWM, Swerve.FRDriveDir, Swerve.FRDriveEncInt, 
-        Swerve.FRDriveEncDir, Swerve.FRSteeringPWM, Swerve.FRSteeringDir, Swerve.FRSteeringEncA, Swerve.FRSteeringEncB, Swerve.FRI2CAddr, "Front Right");
     SwerveModule m_backLeft = new SwerveModule(Swerve.BLDrivePWM, Swerve.BLDriveDir, Swerve.BLDriveEncInt, 
         Swerve.BLDriveEncDir, Swerve.BLSteeringPWM, Swerve.BLSteeringDir, Swerve.BLSteeringEncA, Swerve.BLSteeringEncB, Swerve.BLI2CAddr, "Back Left");
     SwerveModule m_backRight = new SwerveModule(Swerve.BRDrivePWM, Swerve.BRDriveDir, Swerve.BRDriveEncInt, 
         Swerve.BRDriveEncDir, Swerve.BRSteeringPWM, Swerve.BRSteeringDir, Swerve.BRSteeringEncA, Swerve.BRSteeringEncB, Swerve.BRI2CAddr, "Back Right");
-
+    SwerveModule m_frontRight = new SwerveModule(Swerve.FRDrivePWM, Swerve.FRDriveDir, Swerve.FRDriveEncInt, 
+        Swerve.FRDriveEncDir, Swerve.FRSteeringPWM, Swerve.FRSteeringDir, Swerve.FRSteeringEncA, Swerve.FRSteeringEncB, Swerve.FRI2CAddr, "Front Right");
+    
     // Robot wheel location
-    private final Translation2d m_frontLeftLocation = new Translation2d(0.05842, 0.05842);
-    private final Translation2d m_backLeftLocation = new Translation2d(-0.05842, 0.05842);
-    private final Translation2d m_backRightLocation = new Translation2d(-0.05842, -0.05842);
-    private final Translation2d m_frontRightLocation = new Translation2d(0.05842, -0.05842);
+    private final Translation2d m_frontLeftLocation = new Translation2d(0.094,0.094);//(0.05842, 0.05842);
+    private final Translation2d m_backLeftLocation = new Translation2d(-0.094,0.094);//(-0.05842, 0.05842);
+    private final Translation2d m_backRightLocation = new Translation2d(-0.094,-0.094);//(-0.05842, -0.05842);
+    private final Translation2d m_frontRightLocation = new Translation2d(0.094,-0.094);//(0.05842, -0.05842);
 
     private final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
         m_frontLeftLocation, m_backLeftLocation, m_backRightLocation, m_frontRightLocation);
@@ -52,31 +52,31 @@ public class DriveSubsystem extends SubsystemBase {
         Logger.log("DriveSubsystem", 3, "DriveSubsystem()");
 
         m_frontLeft.setSteeringMinPower(Steering.k_FLMinSteerPower);
-        m_frontRight.setSteeringMinPower(Steering.k_FRMinSteerPower);
         m_backLeft.setSteeringMinPower(Steering.k_BLMinSteerPower);
         m_backRight.setSteeringMinPower(Steering.k_BRMinSteerPower);
-        
+        m_frontRight.setSteeringMinPower(Steering.k_FRMinSteerPower);
+
         m_frontLeft.setSteeringZero(Steering.k_FLZero);
-        m_frontRight.setSteeringZero(Steering.k_FRZero);
         m_backLeft.setSteeringZero(Steering.k_BLZero);
         m_backRight.setSteeringZero(Steering.k_BRZero);
+        m_frontRight.setSteeringZero(Steering.k_FRZero);
 
         m_frontLeft.setSteeringPTerm(Steering.k_frontLeftSteeringP);
-        m_frontRight.setSteeringPTerm(Steering.k_frontRightSteeringP);
         m_backLeft.setSteeringPTerm(Steering.k_backLeftSteeringP);
         m_backRight.setSteeringPTerm(Steering.k_backRightSteeringP);
-
+        m_frontRight.setSteeringPTerm(Steering.k_frontRightSteeringP);
+        
         
         m_frontLeft.setSteeringDTerm(Steering.k_frontLeftSteeringD);
-        m_frontRight.setSteeringDTerm(Steering.k_frontRightSteeringD);
         m_backLeft.setSteeringDTerm(Steering.k_backLeftSteeringD);
         m_backRight.setSteeringDTerm(Steering.k_backRightSteeringD);
-
+        m_frontRight.setSteeringDTerm(Steering.k_frontRightSteeringD);
+        
         m_frontLeft.setDriveMinPower(Drive.k_FLminDrivePower);
-        m_frontRight.setDriveMinPower(Drive.k_FRminDrivePower);
         m_backLeft.setDriveMinPower(Drive.k_BLminDrivePower);
         m_backRight.setDriveMinPower(Drive.k_BRminDrivePower);
-
+        m_frontRight.setDriveMinPower(Drive.k_FRminDrivePower);
+        
         m_gyro.invert(false);
         m_gyro.reset(0);
 
